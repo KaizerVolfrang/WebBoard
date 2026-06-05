@@ -1,7 +1,7 @@
 const sql = require('mssql');
 
 const config = {
-    server: 'DESKTOP-4H8DJBS',
+    server: 'DESKTOP-9V6HNSI',
     port: 1433,
     user: 'webboard_user',
     password: 'WebBoard123',
