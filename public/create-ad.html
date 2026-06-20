@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Создать объявление</title>
+    <a href="/my-ads.html">Мои объявления</a>
+</head>
+
+<body>
+
+    <h1>Новое объявление</h1>
+
+    <form id="adForm">
+
+        <div>
+            <input
+                type="text"
+                id="title"
+                placeholder="Заголовок"
+                required>
+        </div>
+
+        <br>
+
+        <div>
+            <textarea
+                id="description"
+                placeholder="Описание"
+                required>
+            </textarea>
+        </div>
+
+        <br>
+
+        <div>
+            Дата начала:
+            <input
+                type="date"
+                id="startDate"
+                required>
+        </div>
+
+        <br>
+
+        <div>
+            Дата окончания:
+            <input
+                type="date"
+                id="endDate"
+                required>
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Создать
+        </button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <script src="/js/create-ad.js"></script>
+
+</body>
+
+</html>
