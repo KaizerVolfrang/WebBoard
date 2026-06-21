@@ -1,68 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Создать объявление</title>
-    <a href="/my-ads.html">Мои объявления</a>
-</head>
+    <link rel="stylesheet" href="/css/style.css" />
+    <style>
+      .category-checkbox {
+        display: inline-block;
+        margin-right: 1rem;
+        margin-bottom: 0.5rem;
+      }
+      .category-checkbox input {
+        width: auto;
+        margin-right: 0.3rem;
+      }
+      #categories-container {
+        margin: 0.5rem 0 1rem 0;
+        padding: 0.5rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Главная</a>
+        <a href="/create-ad">Создать объявление</a>
+        <a href="/my-ads">Мои объявления</a>
+        <a href="/admin" id="adminLink" style="display: none"
+          >🔧 Админ-панель</a
+        >
+        <div id="auth-links">
+          <a href="/login">Вход</a>
+          <a href="/register">Регистрация</a>
+        </div>
+        <div
+          id="user-info"
+          style="
+            display: none;
+            margin-left: auto;
+            gap: 1rem;
+            align-items: center;
+          "
+        >
+          <span id="username"></span>
+          <a href="/logout" id="logoutBtn" style="color: white">Выйти</a>
+        </div>
+      </nav>
+    </header>
 
-<body>
+    <div class="container">
+      <h1>Новое объявление</h1>
 
-    <h1>Новое объявление</h1>
-
-    <form id="adForm">
-
+      <form id="adForm">
         <div>
-            <input
-                type="text"
-                id="title"
-                placeholder="Заголовок"
-                required>
+          <input type="text" id="title" placeholder="Заголовок" required />
         </div>
 
-        <br>
-
         <div>
-            <textarea
-                id="description"
-                placeholder="Описание"
-                required>
-            </textarea>
+          <textarea id="description" placeholder="Описание" required></textarea>
+        </div>
+        
+        <div>
+          <input
+            type="number"
+            id="price"
+            placeholder="Цена (₽)"
+            step="0.01"
+            min="0"
+          />
         </div>
 
-        <br>
-
         <div>
-            Дата начала:
-            <input
-                type="date"
-                id="startDate"
-                required>
+          <label>Дата начала:</label>
+          <input type="date" id="startDate" required />
         </div>
 
-        <br>
-
         <div>
-            Дата окончания:
-            <input
-                type="date"
-                id="endDate"
-                required>
+          <label>Дата окончания:</label>
+          <input type="date" id="endDate" required />
         </div>
 
-        <br>
+        <!-- ===== КАТЕГОРИИ ===== -->
+        <div>
+          <label>Разделы (выберите один или несколько):</label>
+          <div id="categories-container">Загрузка категорий...</div>
+        </div>
 
-        <button type="submit">
-            Создать
-        </button>
+        <button type="submit">Создать</button>
+      </form>
 
-    </form>
+      <p id="message"></p>
+    </div>
 
-    <p id="message"></p>
-
+    <script src="/js/global.js"></script>
     <script src="/js/create-ad.js"></script>
-
-</body>
-
+  </body>
 </html>

@@ -1,160 +1,69 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Админ-панель - WebBoard</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <style>
-        .admin-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        .status-pending {
-            color: #f39c12;
-            font-weight: bold;
-        }
-        .status-approved {
-            color: #27ae60;
-            font-weight: bold;
-        }
-        .status-rejected {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .ad-card {
-            background: white;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-left: 4px solid #ccc;
-        }
-        .ad-card.pending {
-            border-left-color: #f39c12;
-        }
-        .ad-card.approved {
-            border-left-color: #27ae60;
-        }
-        .ad-card.rejected {
-            border-left-color: #e74c3c;
-        }
-        .btn {
-            padding: 0.3rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 0.5rem;
-        }
-        .btn-approve {
-            background: #27ae60;
-            color: white;
-        }
-        .btn-approve:hover {
-            background: #219a52;
-        }
-        .btn-reject {
-            background: #e74c3c;
-            color: white;
-        }
-        .btn-reject:hover {
-            background: #c0392b;
-        }
-        .btn-delete {
-            background: #95a5a6;
-            color: white;
-        }
-        .btn-delete:hover {
-            background: #7f8c8d;
-        }
-        .ad-meta {
-            color: #999;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-        .badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-        }
-        .badge-pending {
-            background: #f39c12;
-            color: white;
-        }
-        .badge-approved {
-            background: #27ae60;
-            color: white;
-        }
-        .badge-rejected {
-            background: #e74c3c;
-            color: white;
-        }
-        .tab {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            background: #ecf0f1;
-            border-radius: 4px 4px 0 0;
-            margin-right: 0.5rem;
-        }
-        .tab.active {
-            background: #2c3e50;
-            color: white;
-        }
-        .tabs {
-            margin-bottom: 1rem;
-        }
-        .user-info {
-            margin-left: auto;
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Главная</a>
+        <a href="/create-ad">Создать объявление</a>
+        <a href="/my-ads">Мои объявления</a>
+        <a href="/admin" id="adminLink" style="color: #f1c40f"
+          >🔧 Админ-панель</a
+        >
+        <a href="/admin-permissions" style="color: #e67e22;">🛡️ Управление разрешениями</a>
+
+        <!-- Блок для неавторизованных (в админке он скрыт всегда) -->
+        <div id="auth-links" style="display: none">
+          <a href="/login">Вход</a>
+          <a href="/register">Регистрация</a>
+        </div>
+
+        <!-- Блок для авторизованных (в админке всегда виден) -->
+        <div
+          id="user-info"
+          style="
             display: flex;
+            margin-left: auto;
             gap: 1rem;
             align-items: center;
-        }
-        header {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-        }
-        nav a {
-            margin-right: 1rem;
-            text-decoration: none;
-            color: white;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav>
-            <a href="/">Главная</a>
-            <a href="/create-ad.html">Создать объявление</a>
-            <a href="/my-ads.html">Мои объявления</a>
-            <a href="/admin.html" style="color: #f1c40f;">Админ-панель</a>
-        </nav>
-        <div class="user-info">
-            <span id="username"></span>
-            <a href="/logout" id="logoutBtn" style="color: white;">Выйти</a>
+          "
+        >
+          <span id="username"></span>
+          <a href="/logout" id="logoutBtn" style="color: white">Выйти</a>
         </div>
+      </nav>
     </header>
 
     <div class="admin-container">
-        <h1>🔧 Админ-панель</h1>
-        
-        <div class="tabs">
-            <span class="tab active" data-tab="all">Все</span>
-            <span class="tab" data-tab="pending">На модерации</span>
-            <span class="tab" data-tab="approved">Одобренные</span>
-            <span class="tab" data-tab="rejected">Отклонённые</span>
-        </div>
+      <h1>🔧 Админ-панель</h1>
 
-        <div id="ads-list">Загрузка...</div>
+      <!-- Ссылка на управление категориями -->
+      <div style="margin-bottom: 1rem;">
+        <a href="/admin-categories" style="color: #3498db;">📂 Управление категориями</a>
+      </div>
+
+      <div class="tabs">
+        <span class="tab active" data-tab="all">Все</span>
+        <span class="tab" data-tab="pending">На модерации</span>
+        <span class="tab" data-tab="approved">Одобренные</span>
+        <span class="tab" data-tab="rejected">Отклонённые</span>
+        <span class="tab" data-tab="statistics">📊 Статистика</span>
+      </div>
+
+      <div id="ads-list">Загрузка...</div>
+
+      <!-- ===== СТАТИСТИКА (теперь в body, а не в header) ===== -->
+      <div id="statistics-container" style="display: none;">
+        <h2>📊 Статистика</h2>
+        <div id="statistics-content">Загрузка...</div>
+      </div>
     </div>
 
+    <script src="/js/global.js"></script>
     <script src="/js/admin.js"></script>
-</body>
+  </body>
 </html>

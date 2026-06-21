@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const path = require('path'); // ← ТОЛЬКО ОДИН РАЗ, В САМОМ ВЕРХУ!
+const path = require('path');
 
 const { connectDB } = require('./config/db');
 const apiRoutes = require('./routes/apiRoutes');
@@ -15,12 +15,29 @@ app.use(session({
     secret: 'webboard-secret-key',
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 часа
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }
 }));
 
 app.use('/api', apiRoutes);
 
-// ========== МАРШРУТЫ СТРАНИЦ ==========
+// =====================================================
+// 1. СНАЧАЛА КОНКРЕТНЫЕ МАРШРУТЫ (выход, страницы)
+// =====================================================
+
+// ===== ВЫХОД (GET) =====
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Ошибка при выходе:', err);
+            return res.status(500).send('Ошибка при выходе');
+        }
+        res.redirect('/');
+    });
+});
+
+// =====================================================
+// 2. ПОТОМ ОБЩИЙ МАРШРУТ (автоматическая маршрутизация)
+// =====================================================
 
 // Автоматическая маршрутизация для всех страниц
 app.get(['/', '/:page'], (req, res) => {
@@ -33,7 +50,7 @@ app.get(['/', '/:page'], (req, res) => {
     });
 });
 
-// ========== ЗАПУСК ==========
+// ===== ЗАПУСК =====
 app.listen(3000, async () => {
     try {
         await connectDB();
@@ -45,6 +62,7 @@ app.listen(3000, async () => {
         console.log('  - /create-ad');
         console.log('  - /my-ads');
         console.log('  - /admin');
+        console.log('  - /logout (выход)');
     } catch (err) {
         console.error('❌ Ошибка подключения к БД:', err.message);
     }

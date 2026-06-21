@@ -1,101 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Мои объявления - WebBoard</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <style>
-        .status-pending {
-            color: #f39c12;
-            font-weight: bold;
-        }
-        .status-approved {
-            color: #27ae60;
-            font-weight: bold;
-        }
-        .status-rejected {
-            color: #e74c3c;
-            font-weight: bold;
-        }
-        .ad-card {
-            background: white;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .ad-title {
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-        }
-        .ad-meta {
-            color: #999;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-        }
-        .badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-        }
-        .badge-pending {
-            background: #f39c12;
-            color: white;
-        }
-        .badge-approved {
-            background: #27ae60;
-            color: white;
-        }
-        .badge-rejected {
-            background: #e74c3c;
-            color: white;
-        }
-        .empty {
-            text-align: center;
-            padding: 2rem;
-            color: #999;
-        }
-        nav a {
-            margin-right: 1rem;
-            text-decoration: none;
-            color: white;
-        }
-        nav a:hover {
-            text-decoration: underline;
-        }
-        .user-info {
-            margin-left: auto;
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-        header {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            align-items: center;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
     <header>
         <nav>
             <a href="/">Главная</a>
-            <a href="/create-ad.html">Создать объявление</a>
-            <a href="/my-ads.html">Мои объявления</a>
+            <a href="/create-ad">Создать объявление</a>
+            <a href="/my-ads">Мои объявления</a>
+            <a href="/admin" id="adminLink" style="display:none;">🔧 Админ-панель</a>
+
+            <!-- Блок для неавторизованных -->
+            <div id="auth-links">
+                <a href="/login">Вход</a>
+                <a href="/register">Регистрация</a>
+            </div>
+
+            <!-- Блок для авторизованных (управляется через global.js) -->
+            <div id="user-info" style="display:none; margin-left:auto; gap:1rem; align-items:center;">
+                <span id="username"></span>
+                <a href="/logout" id="logoutBtn" style="color:white;">Выйти</a>
+            </div>
         </nav>
-        <div class="user-info" id="userInfo">
-            <span id="username"></span>
-            <a href="/logout" id="logoutBtn" style="color: white;">Выйти</a>
-        </div>
     </header>
 
     <div class="container">
@@ -103,6 +33,7 @@
         <div id="ads-list">Загрузка...</div>
     </div>
 
+    <script src="/js/global.js"></script>
     <script src="/js/my-ads.js"></script>
 </body>
 </html>

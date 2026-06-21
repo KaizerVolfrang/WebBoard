@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление разрешениями - WebBoard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .perm-form {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .perm-form select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 150px;
+        }
+        .perm-form button {
+            padding: 0.5rem 1.5rem;
+        }
+        .perm-list {
+            display: grid;
+            gap: 0.5rem;
+        }
+        .perm-item {
+            background: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .perm-item .info {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .perm-item .info .user {
+            font-weight: bold;
+        }
+        .perm-item .info .category {
+            color: #2980b9;
+        }
+        .perm-item .info .status {
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .perm-item .info .status.allowed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .perm-item .info .status.denied {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .btn-delete-perm {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-delete-perm:hover {
+            background: #c0392b;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Главная</a>
+            <a href="/create-ad">Создать объявление</a>
+            <a href="/my-ads">Мои объявления</a>
+            <a href="/admin">🔧 Админ-панель</a>
+            <div id="auth-links">
+                <a href="/login">Вход</a>
+                <a href="/register">Регистрация</a>
+            </div>
+            <div id="user-info" style="display:none; margin-left:auto; gap:1rem; align-items:center;">
+                <span id="username"></span>
+                <a href="/logout" id="logoutBtn" style="color:white;">Выйти</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <a href="/admin" class="back-link">← Назад в админ-панель</a>
+        <h1>🛡️ Управление разрешениями</h1>
+
+        <div class="perm-form">
+            <select id="userSelect">
+                <option value="">Выберите пользователя</option>
+            </select>
+            <select id="categorySelect">
+                <option value="">Выберите раздел</option>
+            </select>
+            <select id="canPostSelect">
+                <option value="1">✅ Разрешено</option>
+                <option value="0">❌ Запрещено</option>
+            </select>
+            <button id="savePermissionBtn">💾 Сохранить</button>
+        </div>
+
+        <div id="message"></div>
+
+        <h2>Текущие настройки</h2>
+        <div class="perm-list" id="permissionsList">Загрузка...</div>
+    </div>
+
+    <script src="/js/global.js"></script>
+    <script src="/js/admin-permissions.js"></script>
+</body>
+</html>
